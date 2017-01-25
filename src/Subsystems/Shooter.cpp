@@ -72,3 +72,7 @@ void Shooter::Fire_smiley(){
 void Shooter::StopFeeder(){
 	feeder->Set(0);
 }
+
+void Shooter::StartFeeder(){
+	feeder->Set(.5);
+}

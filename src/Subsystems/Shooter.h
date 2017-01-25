@@ -37,6 +37,7 @@ public:
 	void PrintShooterRPM();
 	void Fire_smiley();
 	void StopFeeder();
+	void StartFeeder();
 };
 
 #endif
