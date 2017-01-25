@@ -49,12 +49,12 @@ bool Intake:: IsFuelDetectorTripped(){
 	return (!fuelDetector->Get()); //Return True if sensor value is 0
 }
 void Intake:: StartIntake(){
-	if (m_userOveride || IsFuelDetectorTripped()){
+	//if (m_userOveride || IsFuelDetectorTripped()){
 		intakeMotor->Set(.5);
-	}
+	/*}
 	else{
 		intakeMotor->Set(0);
-	}
+	}*/
 }
 void Intake:: StopIntake(){
 	intakeMotor->Set(0);

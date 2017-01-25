@@ -46,7 +46,7 @@ OI::OI() {
 	operatorY->WhileHeld(new ClimbCommand(true, false));
 	operatorX->WhileHeld(new SetFeederOn());
 	operatorB->WhileHeld(new SetIntakeOn());
-	operatorA->WhileHeld(new SetShooterSpeed(500));
+	operatorA->WhileHeld(new SetShooterSpeed(.5));
 
 
 	driverJoystick.reset(new Joystick(1));

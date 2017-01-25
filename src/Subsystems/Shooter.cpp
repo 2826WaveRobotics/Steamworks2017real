@@ -50,7 +50,7 @@ void Shooter::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void Shooter::SetShooterSpeed(double RPM){
+void Shooter::SetShooterSpeed(double RPM){ //this does not work. it's probably because we need to make the PID work to make this work right :)
 	shooter->Set(RPM);
 	m_setRPM = RPM;
 }
