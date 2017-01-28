@@ -24,6 +24,12 @@
 #include "Commands/SetFeederOn.h"
 #include "Commands/SetIntakeOn.h"
 #include "Commands/SetShooterSpeed.h"
+#include "Commands/GearEject.h"
+#include "Commands/GearUneject.h"
+#include "Commands/PlateClosed.h"
+#include "Commands/PlateOpen.h"
+#include "Commands/FeetDeploy.h"
+#include "Commands/FeetRetract.h"
 
 OI::OI() {
 	// Process operator interface input here.
@@ -43,10 +49,12 @@ OI::OI() {
 	operatorB.reset(new JoystickButton(operatorJoystick.get(), 2));
 	operatorA.reset(new JoystickButton(operatorJoystick.get(), 1));
 
-	operatorY->WhileHeld(new ClimbCommand(true, false));
-	operatorX->WhileHeld(new SetFeederOn());
-	operatorB->WhileHeld(new SetIntakeOn());
-	operatorA->WhileHeld(new SetShooterSpeed(.5));
+	operatorY->WhileHeld(new SetShooterSpeed(500));
+	operatorX->WhileHeld(new GearUneject());
+	operatorB->WhileHeld(new PlateClosed());
+	operatorA->WhileHeld(new PlateOpen());
+	operatorStart->WhileHeld(new FeetDeploy());
+	operatorSelect->WhileHeld(new FeetRetract());
 
 
 	driverJoystick.reset(new Joystick(1));
