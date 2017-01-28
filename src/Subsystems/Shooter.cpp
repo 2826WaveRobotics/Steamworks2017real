@@ -33,8 +33,14 @@ Shooter::Shooter() : Subsystem("Shooter") {
     shooterRight->SetP(0);
     shooterRight->SetI(0);
     shooterRight->SetD(0);
+    shooterRight->SetIzone(20); //20 RPM
     shooterRight->SetControlMode(frc::CANSpeedController::kSpeed);
     shooterRight->Set(0);
+
+    //set Left shooter motor to follow the output of the Right shooter motor
+    shooterLeft->SetControlMode(frc::CANSpeedController::kFollower);
+    shooterLeft->Set(RobotMap::shooterRightCANId);
+
     m_setRPM = 0;
 
 }
@@ -55,6 +61,17 @@ void Shooter::SetShooterSpeed(double RPM){
 	shooterRight->Set(RPM);
 	//shooterLeft->Set(RPM);
 	m_setRPM = RPM;
+
+}
+
+//void Shooter::UpdateSecondary(){
+//	shooterLeft->Set(shooterRight->Get());
+//	std::cout << "Shooter Output:" << shooterRight->Get() << std::cout;
+//}
+
+void Shooter::KillShooterSpeed(){
+	shooterLeft->Set(0);
+	shooterRight->Set(0);
 }
 
 void Shooter::PrintShooterRPM(){
@@ -79,12 +96,3 @@ void Shooter::StartFeeder(){
 	feeder->Set(.5);
 }
 
-void Shooter::UpdateSecondary(){
-	shooterLeft->Set(shooterRight->Get());
-	std::cout << "Shooter Output:" << shooterRight->Get() << std::cout;
-}
-
-void Shooter::KillShooterSpeed(){
-	shooterLeft->Set(0);
-	shooterRight->Set(0);
-}

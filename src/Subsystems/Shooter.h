@@ -39,7 +39,7 @@ public:
 	void Fire_smiley();
 	void StopFeeder();
 	void StartFeeder();
-	void UpdateSecondary();
+	//void UpdateSecondary();
 	void KillShooterSpeed();
 };
 

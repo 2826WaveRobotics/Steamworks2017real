@@ -43,8 +43,8 @@ Drive::Drive() : Subsystem("Drive") {
     //hopperLeft->SetEncPosition();
     hopperLeft->ConfigEncoderCodesPerRev(512);//_talon.ConfigEncoderCodesPerRev(XXX)
     hopperLeft->ConfigPeakOutputVoltage(1.0, -1.0);
-    intakeLeft->ConfigEncoderCodesPerRev(512);
-    intakeLeft->ConfigPeakOutputVoltage(1.0, -1.0);
+    hopperRight->ConfigEncoderCodesPerRev(512);
+    hopperRight->ConfigPeakOutputVoltage(1.0, -1.0);
     hLeft->ConfigEncoderCodesPerRev(512);
     hLeft->ConfigPeakOutputVoltage(1.0, -1.0);
 }
@@ -60,6 +60,8 @@ void Drive::InitDefaultCommand() {
 
 void Drive::SetSidePower(double move, double turn, double roll){ //no idea if this works
 	robotDrive41->ArcadeDrive(move, turn);
+	hLeft->Set(roll);
+	hRight->Set(roll);
 }
 
 void Drive::DeployFeet(){
