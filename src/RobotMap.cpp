@@ -22,26 +22,26 @@ int bluelightchannel = 4;
 
 
 //digital i/o
-int fuelDetector = 1;
+int fuelDetector = 6;
 int climbDetectorForward = 5;
-int climbDetectorBack = 6;
+int climbDetectorBack = 8;
 
 //encoder
 int wheelSize = 3.25; //small wheel
 double distancePerPulse = ((wheelSize * 3.14159) / 256);
 
 #ifdef PracticeBot
-int CANTalon_shooterIntake = 20;
+int CANTalon_shooterIntake = 15;
 int CANTalon_driveHopperRight= 1;
 int CANTalon_driveHopperLeft = 27;
 int CANTalon_driveIntakeRight = 14;
 int CANTalon_driveIntakeLeft = 26;
-int CANTalon_driveHRight = 25;
+int CANTalon_driveHRight = 15;
 int CANTalon_driveHLeft = 5;
-int CANTalon_climbLeftClimb= 4;
-int CANTalon_climbRightClimb = 9;
-int CANTalon_shooterShooterLeft = 16;
-int CANTalon_shooterShooterRight = 18;
+int CANTalon_climbLeftClimb= 5;
+int CANTalon_climbRightClimb = 55;
+int CANTalon_shooterShooterLeft = 7;
+int CANTalon_shooterShooterRight = 6;
 int CANTalon_shooterFeeder = 17;
 
 #endif
@@ -107,7 +107,7 @@ void RobotMap::init() {
     intakeIntakeMotor.reset(new CANTalon(CANTalon_shooterIntake));
     lw->AddActuator("Intake", "IntakeMotor", intakeIntakeMotor);
     
-    intakeFuelDetector.reset(new DigitalInput(0));
+    intakeFuelDetector.reset(new DigitalInput(fuelDetector));
     lw->AddSensor("Intake", "FuelDetector", intakeFuelDetector);
     
     driveHopperLeft.reset(new CANTalon(CANTalon_driveHopperLeft));
