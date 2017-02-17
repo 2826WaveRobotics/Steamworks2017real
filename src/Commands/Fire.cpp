@@ -31,6 +31,7 @@ void Fire::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void Fire::Execute() {
 	Robot::shooter.get()->Fire_smiley(); //Checks if shooter is up to speed before firing
+	Robot::intake.get()->StartIntake();
 }
 
 // Make this return true when this Command no longer needs to run execute()

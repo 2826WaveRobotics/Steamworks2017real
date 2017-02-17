@@ -43,7 +43,7 @@ private:
 public:
 	DrivePID();
 	void InitDefaultCommand();
-	void SetSidePower(double move, double roll, double turn);
+	void SetSidePower(double move, double roll, double turn, bool reverseDirection);
 	void DeployFeet();
 	void RetractFeet();
 	double GetLeftEncoder();
@@ -60,6 +60,9 @@ public:
 	double ReturnPIDInput();
 	void UsePIDOutput(double output);
 	void ResetEncoders();
+	void SetPIDs(double kP, double kI, double kD);
+	double GetDistanceTraveled();
+
 
 };
 

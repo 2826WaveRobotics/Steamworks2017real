@@ -34,12 +34,15 @@ Shooter::Shooter() : Subsystem("Shooter") {
     shooterRight->ConfigNominalOutputVoltage(0.1, -0.1);
     shooterRight->ConfigMaxOutputVoltage(12);
     shooterRight->SetF(.45);
-    shooterRight->SetP(0.5);
-    shooterRight->SetI(0);
-    shooterRight->SetD(0);
+//    shooterRight->SetP(0.5);
+//    shooterRight->SetI(0);
+//    shooterRight->SetD(0);
+    SetPIDValues(m_pValue, m_iValue, m_dValue);
     //shooterRight->SetIzone(20); //20 RPM
 
     shooterRight->Set(0);
+
+    //gear ratio 2.8125
 
     //set Left shooter motor to follow the output of the Right shooter motor
    shooterLeft->SetControlMode(frc::CANSpeedController::kFollower);
@@ -47,6 +50,9 @@ Shooter::Shooter() : Subsystem("Shooter") {
    shooterLeft->Set((RobotMap::shooterRightCANId));
 
     m_setRPM = 0;
+    m_pValue = 0;
+    m_iValue = 0;
+    m_dValue = 0;
 
 }
 
@@ -113,3 +119,11 @@ void Shooter::StartFeeder(){
 	feeder->Set(.5);
 }
 
+void Shooter::SetPIDValues(double pValue, double iValue, double dValue){
+	 m_pValue = pValue;
+	 m_iValue = iValue;
+	 m_dValue = dValue;
+	 shooterRight->SetP(m_pValue);
+	 shooterRight->SetI(m_iValue);
+	 shooterRight->SetD(m_dValue);
+}
