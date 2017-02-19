@@ -12,6 +12,7 @@
 #include "RobotMap.h"
 #include "LiveWindow/LiveWindow.h"
 #include "CANTalon.h"
+#include "AHRS.h"
 
 //solenoids
 int gearEject = 0;
@@ -31,8 +32,8 @@ int wheelSize = 3.25; //small wheel
 double distancePerPulse = ((wheelSize * 3.14159) / 256);
 
 #ifdef PracticeBot
-int CANTalon_intakeIntakeLeft   = 18;
-int CANTalon_intakeIntakeRight	 = 13;
+int CANTalon_intakeIntakeLeft   = 6;
+int CANTalon_intakeIntakeRight	 = 26;
 int CANTalon_driveHopperRight    = 9;
 int CANTalon_driveHopperLeft     = 25;
 int CANTalon_driveIntakeRight    = 16;
@@ -98,7 +99,8 @@ std::shared_ptr<Solenoid> RobotMap::driveAntiDriveTrain;
 std::shared_ptr<Solenoid> RobotMap::lightsRedLight;
 std::shared_ptr<Solenoid> RobotMap::lightsBlueLight;
 
-std::shared_ptr<AHRS> RobotMap::m_gyro;
+//std::shared_ptr<AHRS> RobotMap::m_gyro;
+AHRS* RobotMap::m_gyro;
 
 int RobotMap::shooterRightCANId = CANTalon_shooterShooterRight;
 
@@ -198,4 +200,13 @@ void RobotMap::init() {
     lightsRedLight.reset(new Solenoid(0, redlightchannel));
     lightsBlueLight.reset(new Solenoid(0, bluelightchannel));
 
+    try {
+    	//m_gyro.reset(new AHRS((SPI::Port::kMXP)));
+    	m_gyro = new AHRS(SPI::Port::kMXP);
+    	//m_gyro.reset(new AHRS((SerialPort::Port::kMXP)));
+    } catch (std::exception& ex ) {
+                std::string err_string = "Error instantiating navX MXP:  ";
+                err_string += ex.what();
+                DriverStation::ReportError(err_string.c_str());
+            }
 }

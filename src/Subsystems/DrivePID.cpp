@@ -51,6 +51,7 @@ DrivePID::DrivePID() : PIDSubsystem("DrivePID", 0.0, 0.0, 0.0) {
     hopperRight->ConfigPeakOutputVoltage(1.0, -1.0);
     hLeft->ConfigEncoderCodesPerRev(c_CPR);
     hLeft->ConfigPeakOutputVoltage(1.0, -1.0);
+
 }
 
 void DrivePID::InitDefaultCommand() {
@@ -70,7 +71,7 @@ void DrivePID::SetSidePower(double move, double turn, double roll, bool reverseD
 		roll =-1.0*(roll);
 	}
 
-	//std::cout<<"Direction: "<<reverseDirection<< ", Move: "<<move<< "roll: "<<roll<< "turn: "<<turn<< std::endl;
+	std::cout<<"Direction: "<<reverseDirection<< ", Move: "<<move<< "roll: "<<roll<< "turn: "<<turn<< std::endl;
 
 	robotDrive41->ArcadeDrive(move, turn);
 
@@ -86,14 +87,17 @@ void DrivePID::SetSidePower(double move, double turn, double roll, bool reverseD
 		hLeft->Set(0);
 		hRight->Set(0);
 	}
-
+	std::cout << "End of Set Side Power " << std::endl;
 }
 
 void DrivePID::DriveStraight(double power) {
 
-	//std::cout << "Drive: Moving straight with power: " << power << std::endl;
+	std::cout << "Drive: Moving straight with power: " << power << std::endl;
 	double correction = GetPIDController()->Get(); //Robot::drivePID->GetPIDOutput();
-	SetSidePower(power, power + correction, 0, false);
+	robotDrive41->TankDrive(power-correction, power+correction);
+	hLeft->Set(0);
+	hRight->Set(0);
+	//SetSidePower(power, power+correction, 0, false); //no + correction in turn
 	double degreesOff = GetSetpoint() - GetYaw();
 	std::cout << "Correction: " << correction << "\tLeft: " <<
 				(power - correction) << "\tRight: " << (power + correction) << "\tYaw: "
@@ -105,7 +109,7 @@ void DrivePID::SetDirection(double heading)
 {
 	GetPIDController()->Disable();
 	GetPIDController()->Reset();
-    gyro.get()->ZeroYaw();
+    gyro->ZeroYaw();
 	GetPIDController()->SetSetpoint(heading); //we are now facing the same way the entire time
 }
 
@@ -125,9 +129,9 @@ double DrivePID::ReturnPIDInput() {
 void DrivePID::UsePIDOutput(double output) {
 	//std::cout << "DrivePID - UsePIDOutput = " << output << std::endl;
 
-	robotDrive41.get()->TankDrive(-output, output);
-	hLeft->Set(0);
-	hRight->Set(0);
+//	robotDrive41.get()->TankDrive(-output, output);
+//	hLeft->Set(0);
+//	hRight->Set(0);
 }
 
 
@@ -172,6 +176,10 @@ double DrivePID::GetHEncoder()
 }
 
 double DrivePID::GetYaw() {
+	if(NULL == gyro){
+		std::cout << "gyro is null" << std::endl;
+		return 0;
+	}
 	return gyro->GetYaw();
 }
 

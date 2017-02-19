@@ -51,8 +51,8 @@ bool Intake:: IsFuelDetectorTripped(){
 }
 void Intake:: StartIntake(){
 	//if (m_userOveride || IsFuelDetectorTripped()){
-		intakeRight->Set(-1);
-		intakeLeft->Set(1);
+		intakeRight->Set(.8);
+		intakeLeft->Set(.8);
 	/*}
 	else{
 		intakeMotor->Set(0);

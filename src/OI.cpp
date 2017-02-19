@@ -49,7 +49,7 @@ OI::OI() {
 	operatorB.reset(new JoystickButton(operatorJoystick.get(), 2));
 	operatorA.reset(new JoystickButton(operatorJoystick.get(), 1));
 
-	//operatorY->WhileHeld(new SetIntakeOn());
+	operatorY->WhileHeld(new SetIntakeOn());
 	operatorX->WhileHeld(new GearUneject());
 	operatorB->WhileHeld(new PlateClosed());
 	operatorA->WhileHeld(new PlateOpen());

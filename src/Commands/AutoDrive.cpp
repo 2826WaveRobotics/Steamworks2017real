@@ -29,16 +29,23 @@ AutoDrive::AutoDrive(double distance, double heading, double power): Command() {
 
 // Called just before this Command runs the first time
 void AutoDrive::Initialize() {
-	Robot::drivePID->ResetEncoders();
-
+	std::cout << " Auto Drive Initialize _-------------------------" << std::endl;
+	//Robot::drivePID->ResetEncoders();
+	if (NULL == Robot::drivePID){
+		std::cout << "man it is NULL" << std::cout;
+	}
+	std::cout << "stuff is happeing" << std::endl;
 	Robot::drivePID->SetDirection(m_heading);
+//	std::cout << " Auto Drive Set Direction" << std::endl;
 	Robot::drivePID->DriveStraight(m_power);
-
+	std::cout << "AutoDrive Drive Straight" << std::endl;
 	Robot::drivePID->SetPIDs(0,0,0);
+	std::cout << " Auto Drive Initialize END _-------------------------" << std::endl;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDrive::Execute() {
+	std::cout << " Auto Drive Execute _-------------------------" << std::endl;
 	Robot::drivePID->DriveStraight(m_power);
 	m_distanceTraveled = Robot::drivePID->GetDistanceTraveled();
 
@@ -47,25 +54,25 @@ void AutoDrive::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDrive::IsFinished() {
 	//Check to see if encoder reads that we've traveled the distance
-
-	if(m_power > 0 && m_distanceTraveled > m_distance){
-		return true;
-	}
-	else if(m_power < 0 && m_distanceTraveled < m_distance){
-			return true;
-	}
-
-	else if(m_power == 0){
-			return true;
-	}
-	else{
-			return false;
-	}
-//	if (Robot::drivePID->GetLeftEncoder() > m_distance && Robot::drivePID->GetRightEncoder() > m_distance){
+//
+//	if(m_power > 0 && m_distanceTraveled > m_distance){
 //		return true;
 //	}
+//	else if(m_power < 0 && m_distanceTraveled < m_distance){
+//			return true;
+//	}
 //
-//    return false;
+//	else if(m_power == 0){
+//			return true;
+//	}
+//	else{
+//			return false;
+//	}
+////	if (Robot::drivePID->GetLeftEncoder() > m_distance && Robot::drivePID->GetRightEncoder() > m_distance){
+////		return true;
+////	}
+//
+   return false;
 }
 
 // Called once after isFinished returns true

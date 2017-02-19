@@ -62,7 +62,8 @@ public:
 	static std::shared_ptr<Solenoid> driveAntiDriveTrain;
 	static std::shared_ptr<Encoder> shooterShooterEncoder;
 
-	static std::shared_ptr<AHRS> m_gyro;
+	//static std::shared_ptr<AHRS> m_gyro;
+	static AHRS *m_gyro;
 	static std::shared_ptr<Solenoid> lightsRedLight;
 	static std::shared_ptr<Solenoid> lightsBlueLight;
 
