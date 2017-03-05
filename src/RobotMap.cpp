@@ -17,9 +17,10 @@
 //solenoids
 int gearEject = 0;
 int gearAcquire = 1;
-int antiDriveTrain = 2;
-int redlightchannel = 3;
-int bluelightchannel = 4;
+int antiDriveTrain = 3;
+int climbRelease = 2;
+int redlightchannel = 4;
+int bluelightchannel = 5;
 
 
 //digital i/o
@@ -32,7 +33,7 @@ int wheelSize = 3.25; //small wheel
 double distancePerPulse = ((wheelSize * 3.14159) / 256);
 
 #ifdef PracticeBot
-int CANTalon_intakeIntakeLeft   = 6;
+int CANTalon_intakeIntakeLeft    = 6; //9
 int CANTalon_intakeIntakeRight	 = 26;
 int CANTalon_driveHopperRight    = 9;
 int CANTalon_driveHopperLeft     = 25;
@@ -40,8 +41,8 @@ int CANTalon_driveIntakeRight    = 16;
 int CANTalon_driveIntakeLeft     = 7;
 int CANTalon_driveHRight         = 14;
 int CANTalon_driveHLeft          = 5;
-int CANTalon_climbLeftClimb      = 6;
-int CANTalon_climbRightClimb     = 26;
+int CANTalon_climbLeftClimb      = 13;
+int CANTalon_climbRightClimb     = 18;
 int CANTalon_shooterShooterLeft  = 2;  //follower
 int CANTalon_shooterShooterRight = 3; //leader
 int CANTalon_shooterFeeder       = 15;
@@ -50,18 +51,19 @@ int CANTalon_shooterFeeder       = 15;
 
 
 #ifdef CompBot
-int CANTalon_intakeIntakeMotor = 5;
-int CANTalon_driveHopperRight= 16;
-int CANTalon_driveHopperLeft = 15;
-int CANTalon_driveIntakeRight = 1;
-int CANTalon_driveIntakeLeft = 14;
-int CANTalon_driveHRight = 2;
-int CANTalon_driveHLeft = 13;
-int CANTalon_climbLeftClimb= 12;
-int CANTalon_climbRightClimb = 9;
-int CANTalon_shooterShooterLeft = 11;
-int CANTalon_shooterShooterRight = 4;
-int CANTalon_shooterFeeder = 10;
+int CANTalon_intakeIntakeLeft    = 2;
+int CANTalon_intakeIntakeRight	 = 13;
+int CANTalon_driveHopperRight    = 14;
+int CANTalon_driveHopperLeft     = 1;
+int CANTalon_driveIntakeRight    = 15;
+int CANTalon_driveIntakeLeft     = 16;
+int CANTalon_driveHRight         = 10;
+int CANTalon_driveHLeft          = 5;
+int CANTalon_climbLeftClimb      = 3;
+int CANTalon_climbRightClimb     = 12;
+int CANTalon_shooterShooterLeft  = 4; //follower
+int CANTalon_shooterShooterRight = 11; //leader
+int CANTalon_shooterFeeder       = 9;
 #endif
 
 
@@ -95,12 +97,13 @@ std::shared_ptr<Encoder> RobotMap::shooterShooterEncoder;
 
 std::shared_ptr<DigitalInput> RobotMap::climbClimbDetectorForward;
 std::shared_ptr<DigitalInput> RobotMap::climbClimbDetectorBack;
+std::shared_ptr<Solenoid> RobotMap::climbClimbRelease;
 std::shared_ptr<Solenoid> RobotMap::driveAntiDriveTrain;
 std::shared_ptr<Solenoid> RobotMap::lightsRedLight;
 std::shared_ptr<Solenoid> RobotMap::lightsBlueLight;
 
 //std::shared_ptr<AHRS> RobotMap::m_gyro;
-AHRS* RobotMap::m_gyro;
+//AHRS* RobotMap::m_gyro;
 
 int RobotMap::shooterRightCANId = CANTalon_shooterShooterRight;
 
@@ -143,18 +146,18 @@ void RobotMap::init() {
     driveHRight.reset(new CANTalon(CANTalon_driveHRight));
     lw->AddActuator("Drive", "HRight", driveHRight);
     
-    driveLeftEncoder.reset(new Encoder(4, 5, false, Encoder::k4X));
-    lw->AddSensor("Drive", "LeftEncoder", driveLeftEncoder);
-    driveLeftEncoder->SetDistancePerPulse(distancePerPulse);
-    driveLeftEncoder->SetPIDSourceType(PIDSourceType::kRate);
-    driveRightEncoder.reset(new Encoder(6, 7, false, Encoder::k4X));
-    lw->AddSensor("Drive", "RightEncoder", driveRightEncoder);
-    driveRightEncoder->SetDistancePerPulse(distancePerPulse);
-    driveRightEncoder->SetPIDSourceType(PIDSourceType::kRate);
-    driveHEncoder.reset(new Encoder(8, 9, false, Encoder::k4X));
-    lw->AddSensor("Drive", "HEncoder", driveHEncoder);
-    driveHEncoder->SetDistancePerPulse(distancePerPulse);
-    driveHEncoder->SetPIDSourceType(PIDSourceType::kRate);
+    //driveLeftEncoder.reset(new Encoder(4, 5, false, Encoder::k4X));
+//    lw->AddSensor("Drive", "LeftEncoder", driveLeftEncoder);
+//    driveLeftEncoder->SetDistancePerPulse(distancePerPulse);
+//    driveLeftEncoder->SetPIDSourceType(PIDSourceType::kRate);
+//    driveRightEncoder.reset(new Encoder(6, 7, false, Encoder::k4X));
+//    lw->AddSensor("Drive", "RightEncoder", driveRightEncoder);
+//    driveRightEncoder->SetDistancePerPulse(distancePerPulse);
+//    driveRightEncoder->SetPIDSourceType(PIDSourceType::kRate);
+//    driveHEncoder.reset(new Encoder(8, 9, false, Encoder::k4X));
+//    lw->AddSensor("Drive", "HEncoder", driveHEncoder);
+//    driveHEncoder->SetDistancePerPulse(distancePerPulse);
+//    driveHEncoder->SetPIDSourceType(PIDSourceType::kRate);
 
     gearEjector.reset(new Solenoid(0, gearEject));
     lw->AddActuator("Gear", "Ejector", gearEjector);
@@ -188,8 +191,10 @@ void RobotMap::init() {
     climbClimbDetectorForward.reset(new DigitalInput(climbDetectorForward));
        lw->AddSensor("Climb", "ClimbDetectorFront", climbClimbDetectorForward);
 
-     climbClimbDetectorBack.reset(new DigitalInput(climbDetectorBack));
+    climbClimbDetectorBack.reset(new DigitalInput(climbDetectorBack));
               lw->AddSensor("Climb", "ClimbDetectorBack", climbClimbDetectorBack);
+
+    climbClimbRelease.reset(new Solenoid(0, climbRelease));
 
     driveAntiDriveTrain.reset(new Solenoid(0, antiDriveTrain));
     lw->AddActuator("Drive", "AntiDriveTrain", driveAntiDriveTrain);
@@ -200,13 +205,19 @@ void RobotMap::init() {
     lightsRedLight.reset(new Solenoid(0, redlightchannel));
     lightsBlueLight.reset(new Solenoid(0, bluelightchannel));
 
+//    m_gyro.reset(new AHRS(SerialPort::kMXP));
+
     try {
+//    	m_gyro = new AHRS(SPI::kMXP);
     	//m_gyro.reset(new AHRS((SPI::Port::kMXP)));
-    	m_gyro = new AHRS(SPI::Port::kMXP);
-    	//m_gyro.reset(new AHRS((SerialPort::Port::kMXP)));
+//    	m_gyro = new AHRS(SPI::Port::kMXP);
+    	std::cout << " ----------------- reached navx TRY --------------" << std::endl;
+//    	m_gyro.reset(new AHRS((SPI::Port::kMXP)));
     } catch (std::exception& ex ) {
                 std::string err_string = "Error instantiating navX MXP:  ";
                 err_string += ex.what();
                 DriverStation::ReportError(err_string.c_str());
+            	std::cout << " ----------------- reached navx CATCH --------------" << std::endl;
             }
+    std::cout << " ---------------- END OF ROBOT MAP _-----------------" << std::endl;
 }

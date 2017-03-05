@@ -29,55 +29,58 @@ AutoDrive::AutoDrive(double distance, double heading, double power): Command() {
 
 // Called just before this Command runs the first time
 void AutoDrive::Initialize() {
-	std::cout << " Auto Drive Initialize _-------------------------" << std::endl;
+	std::cout << " Auto Drive Init .. " << std::endl;
 	//Robot::drivePID->ResetEncoders();
+	//RobotMap::driveIntakeRight->SetEncPosition(0);
+	std::cout << " 1 .." << std::endl;
 	if (NULL == Robot::drivePID){
 		std::cout << "man it is NULL" << std::cout;
 	}
-	std::cout << "stuff is happeing" << std::endl;
-	Robot::drivePID->SetDirection(m_heading);
-//	std::cout << " Auto Drive Set Direction" << std::endl;
-	Robot::drivePID->DriveStraight(m_power);
-	std::cout << "AutoDrive Drive Straight" << std::endl;
-	Robot::drivePID->SetPIDs(0,0,0);
-	std::cout << " Auto Drive Initialize END _-------------------------" << std::endl;
+	std::cout << " 2 .." << std::endl;
+	Robot::drivePID->SetPIDs(c_straightP, c_straightI, c_straightD);
+	std::cout << " 3 .." << std::endl;
+	Robot::drivePID->DriveStraight(m_power, m_heading);
+	std::cout << " Done" << std::endl;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDrive::Execute() {
 	std::cout << " Auto Drive Execute _-------------------------" << std::endl;
-	Robot::drivePID->DriveStraight(m_power);
-	m_distanceTraveled = Robot::drivePID->GetDistanceTraveled();
-
+	Robot::drivePID->DriveStraight(m_power, m_heading );
+	m_distanceTraveled = Robot::drivePID->GetRightEncoder();
+	std::cout << " Distance Traveled: " << m_distanceTraveled << " Set Distance: " << m_distance << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoDrive::IsFinished() {
 	//Check to see if encoder reads that we've traveled the distance
 //
-//	if(m_power > 0 && m_distanceTraveled > m_distance){
-//		return true;
-//	}
-//	else if(m_power < 0 && m_distanceTraveled < m_distance){
-//			return true;
-//	}
-//
-//	else if(m_power == 0){
-//			return true;
-//	}
-//	else{
-//			return false;
-//	}
+	if((m_power > 0) && (m_distanceTraveled > m_distance)){
+		std::cout << " ---------------------------- True on first condition ------------" << std::endl;
+		return true;
+	}
+	else if((m_power < 0) && (m_distanceTraveled < m_distance)){
+		 std::cout << " ----------------------- True on second condition ------------" << std::endl;
+		return true;
+	}
+
+	else if(m_power == 0){
+		 std::cout << " ----------------------- True on third condition ------------" << std::endl;
+			return true;
+	}
+	else{
+			return false;
+	}
 ////	if (Robot::drivePID->GetLeftEncoder() > m_distance && Robot::drivePID->GetRightEncoder() > m_distance){
 ////		return true;
 ////	}
 //
-   return false;
+   //return false;
 }
 
 // Called once after isFinished returns true
 void AutoDrive::End() {
-
+	Robot::drivePID->SetSidePower(0, 0, 0, false);
 }
 
 // Called when another command which requires one or more of the same

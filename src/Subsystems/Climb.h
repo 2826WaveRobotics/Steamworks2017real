@@ -31,6 +31,8 @@ private:
 	std::shared_ptr<DigitalInput> climbDetectorForward;
 	std::shared_ptr<DigitalInput> climbDetectorBack;
 
+	std::shared_ptr<Solenoid> climbReleasePin;
+
 public:
 	Climb();
 	void InitDefaultCommand();
@@ -41,6 +43,10 @@ public:
 	void RunClimb(bool go, bool override);
 	bool IsTripped();
 
+	//Don't use this normally
+	void debugClimb(double power);
+
+	void ReleaseClimber(bool release);
 
 };
 

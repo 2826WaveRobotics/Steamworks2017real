@@ -30,12 +30,12 @@ void GearUneject::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void GearUneject::Execute() {
-	Robot::gear.get()->CloseEjector();
+	Robot::gear->CloseEjector();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool GearUneject::IsFinished() {
-    return false;
+    return true;
 }
 
 // Called once after isFinished returns true
