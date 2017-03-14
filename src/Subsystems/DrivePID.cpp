@@ -84,7 +84,7 @@ void DrivePID::SetSidePower(double move, double turn, double roll, bool reverseD
 	{
 		move = -1.0*(move);
 		turn = -1.0*(turn);
-		roll =-1.0*(roll);
+		roll = -1.0*(roll);
 	}
 
 	//std::cout<<"Direction: "<<reverseDirection<< ", Move: "<<move<< "roll: "<<roll<< "turn: "<<turn<< std::endl;
@@ -136,6 +136,12 @@ void DrivePID :: SetHPower(double power){
 	hRight->Set(power);
 }
 
+void DrivePID::SetOppArcadeDrive(double move, double turn, double heading)
+{
+	SetDirection(heading); // make sure function actually does what we want it to do
+	double correction = GetPIDController()->Get(); //
+	robotDrive41->ArcadeDrive(move, turn-correction);
+}
 void DrivePID::SetDirection(double heading)
 {
 	if(GetPIDController()->GetSetpoint() != heading)

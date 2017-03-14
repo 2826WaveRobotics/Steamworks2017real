@@ -44,6 +44,7 @@ public:
 	void StopIntake();
 	void RunIntakeWithSensor();
 	void ReverseIntake();
+	void StartIntakeAuto();
 
 };
 

@@ -34,7 +34,7 @@ AutoRotate::AutoRotate(double heading, double power, double timeout): Command() 
 void AutoRotate::Initialize() {
 
 //	Robot::drivePID->SetPIDs(c_straightP, c_straightI, c_straightD);
-	Robot::drivePID->SetPIDs(c_crabP, c_crabI, c_crabD);
+	Robot::drivePID->SetPIDs(c_turnP, c_turnI, c_turnD);
 
 	Robot::drivePID->ArcadeDrive(0, m_power, m_heading);
 	std::cout << " Done" << std::endl;
@@ -44,7 +44,7 @@ void AutoRotate::Initialize() {
 void AutoRotate::Execute() {
 	std::cout << "Heading Dif:" << (m_heading - Robot::drivePID->GetYaw()) << ", Want: " << m_heading << ", At: " << Robot::drivePID->GetYaw() <<
 			" Auto Rotate Execute _-------------------------" << std::endl;
-	Robot::drivePID->ArcadeDrive(0, m_power, m_heading);
+	Robot::drivePID->ArcadeDrive(.1, m_power, m_heading);
 
 	}
 
@@ -58,10 +58,10 @@ bool AutoRotate::IsFinished() {
 		std::cout << " ---------------------------------------Timed out -----------------------" << std::endl;
 		return true;
 	}
-	if((m_heading - Robot::drivePID->GetYaw()) > 0){
+	if((fabs(m_heading) <  fabs(Robot::drivePID->GetYaw()))){
 
+		std::cout << " heading is greater than 0" << std::endl;
 		return true;
-
 	}
 	else{
 			return false;

@@ -38,7 +38,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
     shooterRight->ConfigEncoderCodesPerRev(12); //real robot: 12
     shooterRight->ConfigNominalOutputVoltage(0.1, -0.1);
     shooterRight->ConfigMaxOutputVoltage(12);
-    shooterRight->SetF(.65); //13000 rpm is about 70% of 19000
+    shooterRight->SetF(.7); //13000 rpm is about 70% of 19000
 //    shooterRight->SetP(225);
 //    shooterRight->SetI(0);
 //    shooterRight->SetD(22);
@@ -89,7 +89,7 @@ void Shooter::SetShooterSpeed(double RPM){
 //		m_setRPM = speedCalc;
 	}
 
-	std::cout << " -------------------------------------------------  RPM = " << m_setRPM << std::endl;
+	//std::cout << " -------------------------------------------------  RPM = " << m_setRPM << std::endl;
 
 }
 
@@ -130,7 +130,7 @@ void Shooter::PrintShooterRPM(){
 void Shooter::Fire_smiley(){
 	double RPMError = m_setRPM * .01;
 	if(shooterRight->GetEncVel() > (m_setRPM - RPMError)){
-		feeder->Set(.5);
+		feeder->Set(-.85);
 	}
 	else{
 		StopFeeder();

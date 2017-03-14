@@ -67,13 +67,16 @@ public:
 private:
 
 //	SendableChooser *m_alliance;
-	//SendableChooser *m_autoMode;
+	//::unique_ptr<SendableChooser> m_autoMode;
+
+	//SendableChooser <Command> *m_autoMode;
 
 	// Used to start, increment, decrement, and stop the shooter motor
 	bool m_incrementPressed;
 	bool m_decrementPressed;
 	bool m_stopPressed;
 	int m_rpmSet;
+	SendableChooser<Command*> *m_autoMode;
 
 	AHRS *m_gyro;
 };

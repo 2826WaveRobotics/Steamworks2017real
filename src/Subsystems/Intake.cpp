@@ -62,11 +62,11 @@ void Intake:: StartIntake(){
 	//printouts
 	if(m_userOveride)
 	{
-		std::cout << " <<<<<<<<<<<<<<<<<<<<<<<  User override" << std::endl;
+		//std::cout << " <<<<<<<<<<<<<<<<<<<<<<<  User override" << std::endl;
 	}
 	if(IsFuelDetectorTripped())
 	{
-		std::cout << " <<<<<<<<<<<<<<<<<<<<<<<  Fuel Detector" << std::endl;
+		//std::cout << " <<<<<<<<<<<<<<<<<<<<<<<  Fuel Detector" << std::endl;
 	}
 	if(m_reverse){
 		std::cout << " <<<<<<<<<<<<<<<<<<<<<<<<<<< Reverse" << std::endl;
@@ -111,4 +111,9 @@ void Intake::RunIntakeWithSensor(){
 void Intake::ReverseIntake(){
 	intakeRight->Set(.5);
 	intakeLeft->Set(-.5);
+}
+
+void Intake::StartIntakeAuto(){
+	intakeRight->Set(-.8);
+	intakeLeft->Set(.8);
 }

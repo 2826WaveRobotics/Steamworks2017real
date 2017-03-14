@@ -15,7 +15,26 @@
 #include "WPILib.h"
 #include "../AHRS.h"
 
+#define PracticeBot
 
+#ifdef PracticeBot
+
+const double c_calibrationValue = 2;
+
+const double c_straightP = .006;
+const double c_straightI = 0.0;
+const double c_straightD = 0.06;
+
+const double c_turnP = 0.6;
+const double c_turnI = 0;
+const double c_turnD = 0;
+
+const double c_crabP = .01; //15
+const double c_crabI = 0.0;
+const double c_crabD = 0; //5
+#endif
+
+#ifdef CompBot //for tuning
 const double c_straightP = .006;
 const double c_straightI = 0.0;
 const double c_straightD = 0.006;
@@ -23,7 +42,7 @@ const double c_straightD = 0.006;
 const double c_crabP = .6;
 const double c_crabI = 0.0;
 const double c_crabD = 0.0;
-
+#endif
 
 /**
  *
@@ -74,6 +93,7 @@ public:
 	void SetPIDs(double kP, double kI, double kD);
 	double GetDistanceTraveled();
 	void SetHPower(double power);
+	void SetOppArcadeDrive(double move, double turn, double heading);
 	void ArcadeDrive(double move, double turn, double heading);
 
 	void SetGyroPointer(AHRS *newGyro);

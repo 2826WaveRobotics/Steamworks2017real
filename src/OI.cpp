@@ -28,12 +28,15 @@
 #include "Commands/GearUneject.h"
 #include "Commands/PlateClosed.h"
 #include "Commands/PlateOpen.h"
+
 #include "Commands/FeetDeploy.h"
 #include "Commands/FeetRetract.h"
 #include "Commands/ClimbDeploy.h"
 #include "Commands/Fire.h"
 #include "Commands/PlateOpen.h"
 #include "Commands/ClimbCommand.h"
+#include "Commands/AutoRotate.h"
+#include "Commands/TeleRotate.h"
 
 OI::OI() {
 	// Process operator interface input here.
@@ -53,7 +56,8 @@ OI::OI() {
 	operatorB.reset(new JoystickButton(operatorJoystick.get(), 2));
 	operatorA.reset(new JoystickButton(operatorJoystick.get(), 1));
 
-	operatorY->WhileHeld(new ClimbDeploy());
+	operatorY->WhenPressed(new ClimbDeploy(true));
+	operatorY->WhenReleased(new ClimbDeploy(false));
 	operatorB->WhenReleased(new GearUneject());
 	operatorB->WhenPressed(new GearEject());
 	operatorX->WhenPressed(new PlateOpen());
@@ -83,6 +87,9 @@ OI::OI() {
 	driverX.reset(new JoystickButton(driverJoystick.get(), 3));
 	driverB.reset(new JoystickButton(driverJoystick.get(), 2));
 	driverA.reset(new JoystickButton(driverJoystick.get(), 1));
+
+	//driverB->WhenPressed(new TeleRotate());
+	//driverB->WhenReleased(new TeleRotate());
 
 	tuningJoystick1.reset(new Joystick(3));
 
