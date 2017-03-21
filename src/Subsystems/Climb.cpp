@@ -69,8 +69,8 @@ void Climb::RunClimb(bool go, bool override){
 	}
 	else*/ if(go){
 		//if(climbDetectorForward->Get() || climbDetectorBack->Get()){ //If Sensor is not tripped continue climbing
-			leftClimb->Set(1.0);
-			rightClimb->Set(1.0);
+			leftClimb->Set(-1.0);
+			rightClimb->Set(-1.0);
 		}
 		else{
 			leftClimb->Set(0);

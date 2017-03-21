@@ -62,7 +62,7 @@ int CANTalon_driveHLeft          = 5;
 int CANTalon_climbLeftClimb      = 3;
 int CANTalon_climbRightClimb     = 12;
 int CANTalon_shooterShooterLeft  = 4; //follower
-int CANTalon_shooterShooterRight = 11; //leader
+int CANTalon_shooterShooterRight = 19; //leader
 int CANTalon_shooterFeeder       = 9;
 #endif
 

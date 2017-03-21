@@ -31,16 +31,17 @@ Red_AutoFarHopperShoot::Red_AutoFarHopperShoot() {
 
 
 	AddSequential(new ZeroYaw());
-	AddSequential(new AutoDrive(-80, 0, -1));
+	AddSequential(new ResetEncoders());
+	AddSequential(new AutoDrive(-75, 0, -1));
 	AddParallel(new SetShooterSpeed(1257, 1));
 	AddSequential(new ResetEncoders());
-	AddSequential(new ZeroYaw());
+	//AddSequential(new ZeroYaw());
 	AddSequential(new AutoCrab(300, 0, 1, 2.5));
 	AddSequential(new AutoRotate(-6, -1, .5));
-	AddSequential(new SetShooterSpeed(958, .25));
+	AddSequential(new SetShooterSpeed(1100, .25));
 	//AddParallel(new WaveWait(.25));
 
-	//AddParallel(new Fire(6)); //COMMENT IN WHEN INTAKE FIXED
+	AddSequential(new Fire(6)); //COMMENT IN WHEN INTAKE FIXED
 
     // e.g. AddSequential(new Command1());
     //      AddSequential(new Command2());

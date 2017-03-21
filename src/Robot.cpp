@@ -117,7 +117,8 @@ void Robot::RobotInit() {
 	m_autoMode = new SendableChooser<Command*>;
 
 	m_autoMode->AddDefault("Default to Do Nothing", new AutoDoNothing());
-	m_autoMode->AddObject("Drive Straight", new AutoDrive(100, 0, .7));
+	m_autoMode->AddObject("Drive Straight", new AutoDrive(100, 0, .6));
+	m_autoMode->AddObject(" Crab Drive", new AutoCrab(300, 0, 1, 2.5));
 	m_autoMode->AddObject("Center Gear", new AutoGear());
 	m_autoMode->AddObject("Center Gear + Drive", new AutoGear5Pt());
 	m_autoMode->AddObject("Blue Left Angle Gear", new Blue_AutoGearAngle());
@@ -127,8 +128,8 @@ void Robot::RobotInit() {
 	m_autoMode->AddObject("Blue Gear Angle Shoot", new Blue_AutoGearAngleShoot());
 	m_autoMode->AddObject("Blue Gear Center Shoot", new Blue_AutoGearShoot());
 	//m_autoMode->AddObject("Blue Shoot Gear Shoot", new Blue_AutoShootGearShoot());
-	m_autoMode->AddObject("Red Left Angle Gear", new Red_AutoGearAngle());
-	m_autoMode->AddObject("Red Right Angle Gear", new Blue_AutoGearAngle());
+	m_autoMode->AddObject("Red Left Angle Gear", new Blue_AutoGearAngle());
+	m_autoMode->AddObject("Red Right Angle Gear", new Red_AutoGearAngle());
 	m_autoMode->AddObject("Red Close Hopper Shoot", new Red_AutoCloseHopperShoot());
 	m_autoMode->AddObject("Red Far Hopper Shoot", new Red_AutoFarHopperShoot());
 	m_autoMode->AddObject("Red Gear Angle Shoot", new Red_AutoGearAngleShoot());
@@ -150,14 +151,17 @@ void Robot::DisabledInit(){
 
 void Robot::DisabledPeriodic() {
 
-	//	std::cout << "Yaw: " << m_gyro->GetYaw() << " Pitch: " << m_gyro->GetPitch()
+		std::cout << "Yaw: " << m_gyro->GetYaw() << std::endl;
 	//			<< " Roll: " << m_gyro->GetRoll()<< " Is Connected? " << (m_gyro->IsConnected() ? "Yes" : "No")
 	//			<< " Firmware: " << m_gyro->GetFirmwareVersion() << std::endl;
 
 //	std::cout << " --------------------------- before get yaw" << std::endl;
 
 	//::cout << "Yaw: " << drivePID->GetYaw() << std::endl;
-	//drivePID->GetHEncoder();
+	drivePID->GetHEncoder();
+//	drivePID->GetLeftEncoder();
+	drivePID->GetRightEncoder();
+//	shooter->PrintShooterRPM();
 	//std::cout << " ------------------ after get yaw ----------------" << std::endl;
 
 	Scheduler::GetInstance()->Run();
@@ -251,17 +255,17 @@ void Robot::TeleopPeriodic() {
 
 	//Shooter
 	if(oi->getOperatorJoystick()->GetRawAxis(2) > .15){ //x
-		//		shooter->SetShooterSpeed(912); //CLOSE SHOT: 80% = rpm 958 p 8.5 d 115
-		//		shooter->UpdateSecondary();
-		//		shooter->SetPIDValues(8.5, 0,  2560);
+//				shooter->SetShooterSpeed(1000); //CLOSE SHOT: 80% = rpm 958 p 8.5 d 115
+//				shooter->UpdateSecondary();
+//				shooter->SetPIDValues(8.5, 0,  2560);
 
-		//		shooter->SetShooterSpeed(1210); //FAR HOPPER: rpm 1257 p 4.75 d 75
-		//		shooter->UpdateSecondary();
-		//		shooter->SetPIDValues(4.75, 0.00000000000000000001 , 2560); //1257 p 4.75 d 2560
+				shooter->SetShooterSpeed(1210); //FAR HOPPER: rpm 1257 p 4.75 d 75
+				shooter->UpdateSecondary();
+				shooter->SetPIDValues(8.5, 0.00000000000000000001 , 2560); //1257 p 4.75 d 2560
 
-		shooter->SetShooterSpeed(1012);
-		shooter->UpdateSecondary();
-		shooter->SetPIDValues(8.5, 0, 2560);
+//		shooter->SetShooterSpeed(1012);
+//		shooter->UpdateSecondary();
+//		shooter->SetPIDValues(8.5, 0, 2560);
 	}
 	else if(oi->getOperatorJoystick()->GetRawAxis(3)){
 		shooter->SetShooterSpeed(912); //CLOSE SHOT: 80% = rpm 958 p 8.5 d 115
@@ -332,7 +336,7 @@ void Robot::TeleopPeriodic() {
 	//		drivePID->RetractFeet();
 	//	}
 
-	//	shooter->PrintShooterRPM();
+	shooter->PrintShooterRPM();
 
 	Wait(0.007); //seconds
 	//std::cout << "End of Teleop periodic" << std::endl;

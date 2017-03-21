@@ -33,7 +33,7 @@ void SetShooterSpeed::Initialize() {
 	}
 //	/else if(m_newSpeed = 1257)
 	else{
-		Robot::shooter.get()->SetPIDValues(4.75, 0.00000000000000000001 , 2560);
+		Robot::shooter.get()->SetPIDValues(8.5, 0.00000000000000000001 , 2560);
 	}
 }
 

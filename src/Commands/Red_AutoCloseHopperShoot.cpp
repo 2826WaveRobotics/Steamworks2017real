@@ -31,13 +31,15 @@ Red_AutoCloseHopperShoot::Red_AutoCloseHopperShoot() {
 
 
 	AddSequential(new ZeroYaw());
-	AddSequential(new AutoDrive(-43, 0, -1));
-	AddParallel(new SetShooterSpeed(958, 1));
+	AddSequential(new ResetEncoders());
+	AddSequential(new AutoDrive(-34, 0, -1));
+	AddParallel(new SetShooterSpeed(1000, 1));
 	AddSequential(new ResetEncoders());
 	//AddSequential(new ZeroYaw());
 	AddSequential(new AutoCrab(300, 0, 1, 2.5));
 	AddSequential(new ZeroYaw());
-	AddSequential(new AutoRotate(-8, -1, .5));
+	AddSequential(new ResetEncoders());
+	AddSequential(new AutoRotate(-6, -1, .5));
 	AddSequential(new SetShooterSpeed(958, .25));
 	//AddParallel(new WaveWait(.25));
 	AddParallel(new Fire(6));

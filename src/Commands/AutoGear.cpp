@@ -31,10 +31,11 @@ AutoGear::AutoGear() {
 	//AddParallel(new WaveWait(3));
 	//AddSequential(new AutoDrive());
 	AddSequential(new ZeroYaw());
+	AddSequential(new ResetEncoders());
 	//AddSequential(new GearEject());
 	//AddSequential(new AutoDrive(-20, 0, -.5));
 	//AddSequential(new GearUneject());
-	AddSequential(new AutoDrive(56, 0, .7));
+	AddSequential(new AutoDrive(48, 0, .7));
 	//AddSequential(new AutoDrive(-20, 0, -.5));
 	//AddSequential(new AutoDrive(54, 0, .7));
 	AddSequential(new WaveWait(.5));
