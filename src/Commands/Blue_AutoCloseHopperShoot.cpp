@@ -33,15 +33,15 @@ Blue_AutoCloseHopperShoot::Blue_AutoCloseHopperShoot() {
 
 	AddSequential(new ZeroYaw());
 	AddSequential(new ResetEncoders());
-	AddSequential(new AutoDrive(-37, 0, -1));
+	AddSequential(new AutoDrive(-30, 0, -1));
 	AddParallel(new SetShooterSpeed(1000, .25));
-	//AddSequential(new PlateOpen());
-	//AddSequential(new WaveWait(.5));
 	AddSequential(new ResetEncoders());
+	AddSequential(new WaveWait(.5));
+	AddSequential(new AutoRotate(0, -1, .5));
 	AddSequential(new ZeroYaw());
 	AddSequential(new AutoCrab(-10000000, 0, -1, 2.5));
-	AddSequential(new AutoRotate(4, 1, .5));
-	AddSequential(new SetShooterSpeed(940, .25));
+	AddSequential(new AutoRotate(2, 1, .5));
+	AddSequential(new SetShooterSpeed(982, .25));
 	//AddParallel(new WaveWait(.25));
 	AddParallel(new Fire(6));
 

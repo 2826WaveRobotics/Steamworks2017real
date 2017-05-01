@@ -33,7 +33,7 @@ int wheelSize = 3.25; //small wheel
 double distancePerPulse = ((wheelSize * 3.14159) / 256);
 
 #ifdef PracticeBot
-int CANTalon_intakeIntakeLeft    = 6; //9
+int CANTalon_intakeIntakeLeft    = 17; //6
 int CANTalon_intakeIntakeRight	 = 26;
 int CANTalon_driveHopperRight    = 9;
 int CANTalon_driveHopperLeft     = 25;

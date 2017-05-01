@@ -42,6 +42,7 @@ public:
 
 	void RunClimb(bool go, bool override);
 	bool IsTripped();
+	void ReverseClimb();
 
 	//Don't use this normally
 	void debugClimb(double power);

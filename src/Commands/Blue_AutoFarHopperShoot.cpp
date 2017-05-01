@@ -31,7 +31,7 @@ Blue_AutoFarHopperShoot::Blue_AutoFarHopperShoot() {
 
 
 	AddSequential(new ZeroYaw());
-	AddSequential(new AutoDrive(-75, 0, -1));
+	AddSequential(new AutoDrive(-55.5, 0, -1));
 	AddParallel(new SetShooterSpeed(1210, 1));
 	AddSequential(new ResetEncoders());
 	AddSequential(new ZeroYaw());

@@ -30,11 +30,13 @@ Blue_AutoGearShoot::Blue_AutoGearShoot() {
 	AddSequential(new AutoGear());
 	AddSequential(new ResetEncoders());
 	AddSequential(new ZeroYaw());
-	AddSequential(new AutoRotate(-65, -1, 3));
+	AddSequential(new WaveWait(.25));
+	AddSequential(new AutoRotate(-100, -1, 3));
+	AddSequential(new WaveWait(.25));
 	AddSequential(new ZeroYaw());
 	AddSequential(new ResetEncoders());
-	AddSequential(new AutoDrive(10, -42, .7));
-	AddSequential(new SetShooterSpeed(1257, 3));
+	AddSequential(new AutoDrive(50, 0, .7));
+	AddSequential(new SetShooterSpeed(920, 3));
 	AddSequential(new Fire(5));
 
 

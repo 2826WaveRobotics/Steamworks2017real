@@ -48,7 +48,7 @@ void AutoCrab::Initialize() {
 	Robot::drivePID->SetPIDs(c_crabP, c_crabI, c_crabD);
 
 	Robot::drivePID->SetHPower(m_power);
-	Robot::drivePID->ArcadeDrive(0, -.325, m_heading);
+	Robot::drivePID->ArcadeDrive(0, -.325, m_heading); //-.325 on practice bot
 	Robot::drivePID->ZeroYaw();
 	//Robot::drivePID->DriveStraight(0.1, m_heading );
 }

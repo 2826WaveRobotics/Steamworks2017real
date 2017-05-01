@@ -35,7 +35,7 @@ AutoGear::AutoGear() {
 	//AddSequential(new GearEject());
 	//AddSequential(new AutoDrive(-20, 0, -.5));
 	//AddSequential(new GearUneject());
-	AddSequential(new AutoDrive(48, 0, .7));
+	AddSequential(new AutoDrive(46, 0, .7));
 	//AddSequential(new AutoDrive(-20, 0, -.5));
 	//AddSequential(new AutoDrive(54, 0, .7));
 	AddSequential(new WaveWait(.5));

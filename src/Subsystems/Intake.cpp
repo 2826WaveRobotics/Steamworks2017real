@@ -54,6 +54,9 @@ void Intake:: SetUserOveride(bool userInput){
 void Intake::SetReverse(bool reverse){
 	m_reverse = reverse;
 }
+void Intake::SetHighPower(bool highPower){
+	m_highPower = highPower;
+}
 
 bool Intake:: IsFuelDetectorTripped(){
 	return (fuelDetector->Get()); //Return True if sensor value is 0
@@ -74,12 +77,16 @@ void Intake:: StartIntake(){
 
 	//sets motors
 	if (m_userOveride){
-		intakeRight->Set(-.8);
-		intakeLeft->Set(.8);
+		intakeRight->Set(-.6); //negative for comp bot
+		intakeLeft->Set(-.6);
 	}
 	else if(m_reverse){
-		intakeRight->Set(.8);
-		intakeLeft->Set(-.8);
+		intakeRight->Set(.6);
+		intakeLeft->Set(.6);
+	}
+	else if(m_highPower){
+		intakeRight->Set(-.9);
+		intakeLeft->Set(-.9);
 	}
 //	else if(IsFuelDetectorTripped()){
 //		intakeRight->Set(-.8);
@@ -115,5 +122,5 @@ void Intake::ReverseIntake(){
 
 void Intake::StartIntakeAuto(){
 	intakeRight->Set(-.8);
-	intakeLeft->Set(.8);
+	intakeLeft->Set(-.8);
 }

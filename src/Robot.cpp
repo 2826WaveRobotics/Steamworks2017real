@@ -117,8 +117,9 @@ void Robot::RobotInit() {
 	m_autoMode = new SendableChooser<Command*>;
 
 	m_autoMode->AddDefault("Default to Do Nothing", new AutoDoNothing());
+	m_autoMode->AddObject("Auto Rotate TEST", new AutoRotate(-90, -1, 3));
 	m_autoMode->AddObject("Drive Straight", new AutoDrive(100, 0, .6));
-	m_autoMode->AddObject(" Crab Drive", new AutoCrab(300, 0, 1, 2.5));
+	m_autoMode->AddObject(" Crab Drive", new AutoCrab(300, 0, 1, 20000000));
 	m_autoMode->AddObject("Center Gear", new AutoGear());
 	m_autoMode->AddObject("Center Gear + Drive", new AutoGear5Pt());
 	m_autoMode->AddObject("Blue Left Angle Gear", new Blue_AutoGearAngle());
@@ -255,22 +256,25 @@ void Robot::TeleopPeriodic() {
 
 	//Shooter
 	if(oi->getOperatorJoystick()->GetRawAxis(2) > .15){ //x
-//				shooter->SetShooterSpeed(1000); //CLOSE SHOT: 80% = rpm 958 p 8.5 d 115
-//				shooter->UpdateSecondary();
-//				shooter->SetPIDValues(8.5, 0,  2560);
-
-				shooter->SetShooterSpeed(1210); //FAR HOPPER: rpm 1257 p 4.75 d 75
+				shooter->SetShooterSpeed(925); //CLOSE SHOT: 920, p = 8.5d = 2560
 				shooter->UpdateSecondary();
-				shooter->SetPIDValues(8.5, 0.00000000000000000001 , 2560); //1257 p 4.75 d 2560
+				shooter->SetPIDValues(8.9, -2.625, 2560); //p = 8.9 i = -.001  d=2560
+
+				//p = 8.9 i = -.002 d= 2560 rpm=925
+				//p=8.9 i=-100000 d = 3000  rpm=910
+
+//				shooter->SetShooterSpeed(1210); //FAR HOPPER: rpm 1257 p 4.75 d 75
+//				shooter->UpdateSecondary();
+//				shooter->SetPIDValues(8.5, 0.00000000000000000001 , 2560); //1257 p 4.75 d 2560
 
 //		shooter->SetShooterSpeed(1012);
 //		shooter->UpdateSecondary();
 //		shooter->SetPIDValues(8.5, 0, 2560);
 	}
 	else if(oi->getOperatorJoystick()->GetRawAxis(3)){
-		shooter->SetShooterSpeed(912); //CLOSE SHOT: 80% = rpm 958 p 8.5 d 115
+		shooter->SetShooterSpeed(1012); //CLOSE SHOT: 80% = rpm 958 p 8.5 d 115
 		shooter->UpdateSecondary();
-		shooter->SetPIDValues(8.5, 0,  2560);
+		shooter->SetPIDValues(8.9, -0.0008, 2560);
 	}
 	else{
 		shooter->DisablePID();
@@ -292,16 +296,20 @@ void Robot::TeleopPeriodic() {
 	}
 
 	//Intake
-	if((oi->getDriverJoystick()->GetRawAxis(2) > 0.5) || oi->getOperatorJoystick()->GetRawButton(1) || (oi->getOperatorJoystick()->GetRawButton(6))){ //sets m_userOverride
+	if((oi->getDriverJoystick()->GetRawAxis(2) > 0.5) || (oi->getOperatorJoystick()->GetRawButton(6))){ //sets m_userOverride
 		intake->SetUserOveride(true);
 	}
 	else if(oi->getDriverJoystick()->GetRawButton(1) || (oi->getOperatorJoystick()->GetRawAxis(1) > .25)){
 		intake->SetReverse(true);
 	}
+	else if(oi->getDriverJoystick()->GetRawAxis(3)>.25 || oi->getOperatorJoystick()->GetRawButton(1)){
+		intake->SetHighPower(true);
+	}
 	else
 	{
 		intake->SetUserOveride(false);
 		intake->SetReverse(false);
+		intake->SetHighPower(false);
 	}
 	intake->StartIntake();
 	//std::cout << "Intake command: run" << std::endl;

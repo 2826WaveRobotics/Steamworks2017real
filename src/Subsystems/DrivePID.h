@@ -25,9 +25,9 @@ const double c_straightP = .006;
 const double c_straightI = 0.0;
 const double c_straightD = 0.06;
 
-const double c_turnP = 0.6;
+const double c_turnP = .04;
 const double c_turnI = 0;
-const double c_turnD = 0;
+const double c_turnD = .3;
 
 const double c_crabP = .01; //15
 const double c_crabI = 0.0;

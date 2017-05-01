@@ -29,13 +29,14 @@ Red_AutoGearShoot::Red_AutoGearShoot() {
 	AddSequential(new AutoGear());
 	AddSequential(new ResetEncoders());
 	AddSequential(new ZeroYaw());
-	AddSequential(new AutoRotate(63, 1, 3));
+	AddSequential(new WaveWait(.25));
+	AddSequential(new AutoRotate(100, 1, 3));
+	AddSequential(new WaveWait(.25));
 	AddSequential(new ZeroYaw());
 	AddSequential(new ResetEncoders());
-	AddSequential(new AutoDrive(25, 42, .7));
-	AddSequential(new SetShooterSpeed(1257, 3));
-	AddSequential(new ZeroYaw());
-	AddSequential(new ResetEncoders());
+	AddSequential(new AutoDrive(50, 0, .7));
+	AddSequential(new SetShooterSpeed(920, 3));
+	AddSequential(new Fire(5));
 	//AddSequential(new AutoDrive(10, 0, .7));
 	//AddSequential(new Fire(5));
 

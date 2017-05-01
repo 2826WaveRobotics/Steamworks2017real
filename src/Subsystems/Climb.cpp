@@ -85,6 +85,11 @@ void Climb::RunClimb(bool go, bool override){
 //	}
 }
 
+void Climb::ReverseClimb(){
+	leftClimb->Set(1.0);
+	rightClimb->Set(1.0);
+}
+
 bool Climb::IsTripped(){
 
 	std::cout<<"ClimbDetectorForward : "<<climbDetectorForward<<std::endl;
