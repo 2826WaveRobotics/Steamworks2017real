@@ -126,9 +126,9 @@ void DrivePID::DriveStraight(double power, double heading) {
 }
 
 void DrivePID::ArcadeDrive(double move, double turn, double heading){
-	SetDirection(heading); // make sure function actually does what we want it to do
-	double correction = GetPIDController()->Get(); //
-	robotDrive41->ArcadeDrive(move, turn+correction);
+	//SetDirection(heading); // make sure function actually does what we want it to do
+	//double correction = GetPIDController()->Get(); //
+	robotDrive41->ArcadeDrive(move, turn);
 }
 
 void DrivePID :: SetHPower(double power){
