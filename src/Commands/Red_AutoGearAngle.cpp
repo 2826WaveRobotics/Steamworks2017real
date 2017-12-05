@@ -29,7 +29,7 @@ Red_AutoGearAngle::Red_AutoGearAngle() {
 
 	AddSequential(new ZeroYaw());
 	AddSequential(new ResetEncoders());
-	AddSequential(new AutoDrive(56, 0, .7));
+	AddSequential(new AutoDrive(57, 0, .7));
 	AddSequential(new WaveWait(.5));
 	AddSequential(new ResetEncoders());
 	AddSequential(new ZeroYaw());

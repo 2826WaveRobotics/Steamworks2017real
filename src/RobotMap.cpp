@@ -53,17 +53,17 @@ int CANTalon_shooterFeeder       = 15;
 #ifdef CompBot
 int CANTalon_intakeIntakeLeft    = 2;
 int CANTalon_intakeIntakeRight	 = 13;
-int CANTalon_driveHopperRight    = 14;
-int CANTalon_driveHopperLeft     = 1;
-int CANTalon_driveIntakeRight    = 15;
-int CANTalon_driveIntakeLeft     = 16;
+int CANTalon_driveHopperRight    = 6;
+int CANTalon_driveHopperLeft     = 16;
+int CANTalon_driveIntakeRight    = 26;
+int CANTalon_driveIntakeLeft     = 17;
 int CANTalon_driveHRight         = 10;
 int CANTalon_driveHLeft          = 5;
 int CANTalon_climbLeftClimb      = 3;
-int CANTalon_climbRightClimb     = 12;
+int CANTalon_climbRightClimb     = 20; //12
 int CANTalon_shooterShooterLeft  = 4; //follower
 int CANTalon_shooterShooterRight = 19; //leader
-int CANTalon_shooterFeeder       = 9;
+int CANTalon_shooterFeeder       = 12;
 #endif
 
 

@@ -80,12 +80,12 @@ void DrivePID::InitDefaultCommand() {
 }
 
 void DrivePID::SetSidePower(double move, double turn, double roll, bool reverseDirection){ //no idea if this works
-	if(reverseDirection)
-	{
-		move = -1.0*(move);
-		turn = -1.0*(turn);
-		roll = -1.0*(roll);
-	}
+//	if(reverseDirection)
+//	{
+//		move = -1.0*(move);
+//		turn = -1.0*(turn);
+//		roll = 1.0*(roll);
+//	}
 
 	//std::cout<<"Direction: "<<reverseDirection<< ", Move: "<<move<< "roll: "<<roll<< "turn: "<<turn<< std::endl;
 

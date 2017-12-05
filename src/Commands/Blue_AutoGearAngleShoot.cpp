@@ -47,8 +47,8 @@ Blue_AutoGearAngleShoot::Blue_AutoGearAngleShoot() {
 	//AddParallel(new SetShooterSpeed(958, 1));
 	AddSequential(new AutoCrab(-84, 0 , -1, 3)); // -84 GOOD
 	AddSequential(new AutoRotate(8, 1, .5));
-	AddSequential(new SetShooterSpeed(958, 1.5));
-	AddSequential(new Fire(5));
+//	AddSequential(new SetShooterSpeed(958, 1.5));
+//	AddSequential(new Fire(5));
 //	AddSequential(new AutoDrive(48, 20, .75));
 //	AddParallel(new SetShooterSpeed(1000));
 //	AddSequential(new Fire());

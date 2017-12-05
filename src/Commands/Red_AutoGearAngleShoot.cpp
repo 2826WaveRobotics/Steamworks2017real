@@ -16,7 +16,7 @@
 #include "WaveWait.h"
 #include "AutoDrive.h"
 #include "GearEject.h"
-#include "Red_AutoGearAngle.h"
+#include "Blue_AutoGearAngle.h"
 #include "AutoRotate.h"
 #include "ZeroYaw.h"
 #include "ResetEncoders.h"
@@ -30,7 +30,7 @@ Red_AutoGearAngleShoot::Red_AutoGearAngleShoot() {
 	// Add Commands here:
 
 
-	AddSequential(new Red_AutoGearAngle());
+	AddSequential(new Blue_AutoGearAngle());
 
 	AddSequential(new ZeroYaw());
 	AddSequential(new AutoRotate(135, 1, 2));
@@ -43,10 +43,10 @@ Red_AutoGearAngleShoot::Red_AutoGearAngleShoot() {
 	// 84 in with H
 	AddSequential(new ZeroYaw());
 	AddSequential(new ResetEncoders());
-	AddParallel(new SetShooterSpeed(958, 1));
+	//AddParallel(new SetShooterSpeed(958, 1));
 	AddSequential(new AutoCrab(84, 0 , 1, 3)); // -84 GOOD
 	AddSequential(new AutoRotate(-8, -1, .5));
-	AddSequential(new SetShooterSpeed(958, 1.5));
+	//AddSequential(new SetShooterSpeed(958, 1.5));
 	//AddSequential(new Fire(5));
 
 	// e.g. AddSequential(new Command1());

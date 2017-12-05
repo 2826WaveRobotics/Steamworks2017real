@@ -164,7 +164,7 @@ cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture();
 	m_autoMode->AddObject("Blue Right Angle Gear", new Red_AutoGearAngle());
 	m_autoMode->AddObject("Blue Close Hopper Shoot", new Blue_AutoCloseHopperShoot());
 	m_autoMode->AddObject("Blue Far Hopper Shoot", new Blue_AutoFarHopperShoot());
-	m_autoMode->AddObject("Blue Gear Angle Shoot", new Blue_AutoGearAngleShoot());
+	m_autoMode->AddObject("Blue Right Angle Gear Hopper", new Blue_AutoGearAngleShoot());
 	m_autoMode->AddObject("Blue Gear Center Shoot", new Blue_AutoGearShoot());
 	//m_autoMode->AddObject("Blue Shoot Gear Shoot", new Blue_AutoShootGearShoot());
 	m_autoMode->AddObject("Red Left Angle Gear", new Blue_AutoGearAngle());
@@ -270,7 +270,7 @@ void Robot::TeleopInit() {
 	compressorSubsystem->StartCompressor();
 
 
-    //table = NetworkTable::GetTable("GRIP/aGoalContours");
+    m_table = NetworkTable::GetTable("GRIP/aGoalContours");
 
 
 
@@ -325,38 +325,53 @@ void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 
 
-	//cameraProcessor.get()->Periodic();
+//cameraProcessor.get()->Periodic();
 
 
-//	std::vector<double> arr = m_table->GetNumberArray("area", llvm::ArrayRef<double>());
-//	std::vector<double> centerYs = m_table->GetNumberArray("centerY", llvm::ArrayRef<double>());
-//	std::vector<double> centerXs = m_table->GetNumberArray("centerX", llvm::ArrayRef<double>());
-//	std::vector<double> widths = m_table->GetNumberArray("width", llvm::ArrayRef<double>());
-//	std::vector<double> heights = m_table->GetNumberArray("height", llvm::ArrayRef<double>());
-//
-//	if (centerXs.empty() == true){
-//		std::cout << "AAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH" << std::endl;
-//		Robot::drivePID->ArcadeDrive(0, 0, 0);
-//
-//	}
-//	else {
-//		double turnWithVision = (((*centerXs.data()) - 160)/200);
-//		//double direction = ((*centerXs.data())-160)/20;
-//		std::cout << "Center X:" << *centerXs.data() << "  Turn: " << turnWithVision << std::endl;
-//
-//		if((*centerXs.data() < 165) && (*centerXs.data() > 155)){
-//			std::cout << " ----------------------------- returned true ---------------" << std::endl;
-//		}
-//		else{
-//
-//		Robot::drivePID->ArcadeDrive(0.6, turnWithVision, 0);
-//		}
-//
-//	}
+	std::vector<double> arr = m_table->GetNumberArray("area", llvm::ArrayRef<double>());
+	std::vector<double> centerYs = m_table->GetNumberArray("centerY", llvm::ArrayRef<double>());
+	std::vector<double> centerXs = m_table->GetNumberArray("centerX", llvm::ArrayRef<double>());
+	std::vector<double> widths = m_table->GetNumberArray("width", llvm::ArrayRef<double>());
+	std::vector<double> heights = m_table->GetNumberArray("height", llvm::ArrayRef<double>());
+
+	if (centerXs.empty() == true){
+		std::cout << "AAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH" << std::endl;
+		//Robot::drivePID->ArcadeDrive(0, 0, 0);
+
+	}
+	else {
+		double turnWithVision = (((*centerXs.data()) - 160)/200);
+		//double direction = ((*centerXs.data())-160)/20;
+		std::cout << "Height:" << *heights.data()<< "  Turn: " << turnWithVision << std::endl;
+
+		int heightValues = *heights.data();
+		int contourHeight =  2*heightValues;
+		int widthValues = *widths.data();
 
 
+		if(widthValues < (contourHeight + 10) && widthValues > (contourHeight - 10) ){
+			std::cout << " ----------------------------- returned true ---------------" << std::endl;
+
+//			if((*centerXs.data() < 165) && (*centerXs.data() > 155)){
+
+			if(widthValues > 40 && widthValues < 50){
+				//Robot::drivePID->ArcadeDrive(0, 0, 0);
+			}
+			else if (widthValues < 40){
+				//Robot::drivePID->ArcadeDrive(.6, 0, 0);
+			}
+			else {
+				//Robot::drivePID->ArcadeDrive(-.6, 0, 0);
+			}
+		}
+
+		else{
+
+		//Robot::drivePID->ArcadeDrive(-0.6, 0, 0);
+		}
 
 
+	}
 
 
 //
@@ -451,7 +466,7 @@ void Robot::TeleopPeriodic() {
 	}
 
 	bool reverseDirection= oi->getDriverJoystick()->GetRawButton(6);
-	drivePID->SetSidePower(move, turn, roll, reverseDirection);
+	drivePID->SetSidePower(-move, turn, -roll, reverseDirection);
 
 
 	//pneumatic feet
