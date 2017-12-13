@@ -5,13 +5,14 @@
  *      Author: FIRSTMentor
  */
 
-#ifndef SRC_SUBSYSTEMS_CAMERAPROCESSOR_H_
-#define SRC_SUBSYSTEMS_CAMERAPROCESSOR_H_
+#ifndef SRC_SUBSYSTEMS_VISIONMETHODS_H_
+#define SRC_SUBSYSTEMS_VISIONMETHODS_H_
 #include "WPILib.h"
 #include "NetworkTables/NetworkTable.h"
 #include "Commands/Subsystem.h"
+#include "CameraProcessor.h"
 
-class CameraProcessor: public Subsystem {
+class VisionMethods: public Subsystem {
 public:
 
 	class Target {
@@ -65,20 +66,9 @@ private:
 	target_type_t m_activeTarget;
 
 public:
-	CameraProcessor();
-	virtual ~CameraProcessor();
-	bool isTargetAvailable();
-	bool isOnTarget();
-	double getAngle();
-	void incOffsetAngle();
-	void decOffSetAngle();
-	void calculate();
-	void calculateDistanceAndAngleOfTarget(Target& target);
-//	void SetLight(bool state);
-	void Periodic();
-	void lockOnTarget(target_type_t target);
-	void calculateSteadyCount();
-	bool isCameraSteady();
+	std::vector<std::vector<cv::Point>> filteredContours(int cameranum);
+	cv::Point centerOfContour(std::vector<cv::Point> contour);
+	std::vector<cv::Point> contourCenters(std::vector<std::vector<cv::Point>> contours);
 };
 
 #endif /* SRC_SUBSYSTEMS_CAMERAPROCESSOR_H_ */

@@ -4,13 +4,23 @@
  *  Created on: Feb 3, 2017
  *      Author: matthewacho
  */
-#include "../GripPipeline.h"
+#include "../GripPipelineThree.h"
 #include "../Robot.h" //If you don't know what some variables are, they were probably defined in here
 #include <string>
 #include <vector>
+#include "VisionMethods.h"
 #ifndef SRC_VISIONMETHODS_H_
 #define SRC_VISIONMETHODS_H_
 
+//VisionMethods::VisionMethods(){
+//	cv::Mat frame;
+//		cv::VideoCapture cap(cameranum);
+//		cap.set(CV_CAP_PROP_FRAME_WIDTH, 640);
+//		cap.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
+//		bool bSuccess = cap.read(frame);
+//		grip::GripPipelineThree gp;
+//		//return gp.GripPipelineThree::findContoursOutput;
+//}
 
 std::vector<std::vector<cv::Point>> filteredContours(int cameranum) {
 	cv::Mat frame;
@@ -18,8 +28,8 @@ std::vector<std::vector<cv::Point>> filteredContours(int cameranum) {
 	cap.set(CV_CAP_PROP_FRAME_WIDTH, 640);
 	cap.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
 	bool bSuccess = cap.read(frame);
-	grip::GripPipeline gp;
-	return gp.GripPipeline::findContoursOutput;
+	grip::GripPipelineThree gp;
+	return gp.GripPipelineThree::findContoursOutput;
 }
 
 cv::Point centerOfContour(std::vector<cv::Point> contour) {

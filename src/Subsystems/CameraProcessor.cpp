@@ -39,27 +39,27 @@ CameraProcessor::~CameraProcessor() {
 
 void CameraProcessor::Periodic() {
 	calculate();
-	m_table = NetworkTable::GetTable("GRIP/aGoalContours");
-	double owlCounter = m_table->GetNumber("OwlCounter", 0);
-	if (owlCounter != m_prevOwlCounter){
-		m_prevOwlCounter = owlCounter;
-		m_owlMissingCounter = 0;
-		SmartDashboard::PutBoolean("Vision", true);
-	}
-	else {
-		m_owlMissingCounter++;
-		if (m_owlMissingCounter >= 50){
-			SmartDashboard::PutBoolean("Vision", false);
-		}
-		else{
-			SmartDashboard::PutBoolean("Vision", true);
-		}
-	}
-	m_table->PutNumber("RobotCounter", m_robotCounter++);
-	SmartDashboard::PutNumber("Camera Offset Angle", m_OffsetAngle);
-	SmartDashboard::PutBoolean("Target in Range", m_targets[m_activeTarget].distance > m_shotRange);
-	SmartDashboard::PutNumber("Target Angle (relative)", m_targets[m_activeTarget].angle);
-	SmartDashboard::PutBoolean("Camera Stable", isCameraSteady());
+//	m_table = NetworkTable::GetTable("GRIP/aGoalContours");
+//	double owlCounter = m_table->GetNumber("OwlCounter", 0);
+//	if (owlCounter != m_prevOwlCounter){
+//		m_prevOwlCounter = owlCounter;
+//		m_owlMissingCounter = 0;
+//		SmartDashboard::PutBoolean("Vision", true);
+//	}
+//	else {
+//		m_owlMissingCounter++;
+//		if (m_owlMissingCounter >= 50){
+//			SmartDashboard::PutBoolean("Vision", false);
+//		}
+//		else{
+//			SmartDashboard::PutBoolean("Vision", true);
+//		}
+//	}
+//	m_table->PutNumber("RobotCounter", m_robotCounter++);
+//	SmartDashboard::PutNumber("Camera Offset Angle", m_OffsetAngle);
+//	SmartDashboard::PutBoolean("Target in Range", m_targets[m_activeTarget].distance > m_shotRange);
+//	SmartDashboard::PutNumber("Target Angle (relative)", m_targets[m_activeTarget].angle);
+//	SmartDashboard::PutBoolean("Camera Stable", isCameraSteady());
 }
 
 bool CameraProcessor::isTargetAvailable(){
